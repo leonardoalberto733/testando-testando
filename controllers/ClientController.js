@@ -17,15 +17,15 @@ class ClientController{
     }
 
     store(){
-        //CADASTRAR UM CONTATO
+        //CADASTRAR UM CLIENTE
     }
 
     update(){
-        //ATUALIZAR UM CONTATO
+        //ATUALIZAR UM CLIENTE
     }
 
     delete(){
-        //DELETAR UM CONTATO
+        //DELETAR UM CLIENTE
     }
 
 }
