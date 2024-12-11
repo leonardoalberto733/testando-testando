@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Xique Xique Brazil</title>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/styles2.css">
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!" style="margin: auto;">Xique Xique Brazil Style</a>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="fotos/roupa chique.webp" id="foto" alt="..." /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light">Xique Xique Brazil</h1>
+                    <p id="texto">Na Xique Xique Brazil, acreditamos que estilo e sofisticação caminham juntos, refletindo a essência da mulher moderna e confiante. Inspirados pela elegância natural do Brasil e pelo charme internacional, nossa loja oferece peças exclusivas que combinam design refinado com o toque único da nossa cultura.</p>
+                    <button class="btn btn-primary" href="#!" id="rolagem"><a href="#formulario" style="color: white;">Ir Para Cadastro</a></button>
+                </div>
+            </div>
+            <!-- Call to Action-->
+            <div class="card text-white bg-secondary my-5 py-4 text-center">
+                <div class="card-body"><p class="text-white m-0">Esta página permite cadastrar e consultar clientes da loja:</p></div>
+            </div>
+            <!-- Content Row-->
+            <div id="form-cont">
+                <form id="form-cadastrar" method="POST">
+
+                    <div id="formulario">
+                        <div class="entrada">
+                            <label for="nome">Nome: </label>
+                            <input type="text" name="nome" id="nome" class="input" maxlength="40">
+                        </div>
+                        <div class="entrada">
+                            <label for="cpf">CPF: </label>
+                            <input type="text" name="cpf" id="cpf" class="input" minlength="11" maxlength="11">
+                        </div>
+                        <div class="entrada">
+                            <label for="email">E-mail: </label>
+                            <input type="email" name="email" id="email" class="input">
+                        </div>
+                        <div class="entrada">
+                            <label for="endereco">Endereço: </label>
+                            <input type="text" name="endereco" id="endereco" class="input">
+                        </div>
+                        <div class="entrada">
+                            <label for="numero">Telefone: </label>
+                            <input type="tel" name="numero" id="numero" class="input" minlength="8" maxlength="11">
+                        </div>
+                        <div class="entrada">
+                            <label for="nascimento">Nascimento: </label>
+                            <input type="date" name="nascimento" id="nascimento" class="input">
+                        </div>
+                    </div>
+
+                    <!-- Campo oculto para o ID do cliente, usado na atualização -->
+                    <input type="hidden" id="clientId" name="clientId">
+
+                    <input type="submit" value="Cadastrar" id="cadastrar">
+                </form>
+                <div id="botoes" id="bot-listar">
+                    <input type="button" value="Listar" id="listar" class="botoes">
+                </div>
+            </div>
+            <div id="client-list"></div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright 2024 Xique Xique Brazil</p></div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script>
+            // Função para salvar cliente (Cadastro ou Atualização)
+            document.getElementById("form-cadastrar").addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const clientId = document.getElementById("clientId").value; // Captura o ID do cliente, se existir
+                const data = {
+                    nome: document.getElementById("nome").value,
+                    cpf: document.getElementById("cpf").value,
+                    email: document.getElementById("email").value,
+                    endereco: document.getElementById("endereco").value,
+                    numero: document.getElementById("numero").value,
+                    nascimento: document.getElementById("nascimento").value,
+                };
+
+                try {
+                    let response;
+                    if (clientId) {
+                        // Atualização de cliente
+                        response = await fetch(`http://localhost:3000/clientes/${clientId}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        });
+                    } else {
+                        // Cadastro de cliente
+                        response = await fetch("http://localhost:3000/cadastrar", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        });
+                    }
+
+                    if (response.ok) {
+                        alert(clientId ? "Cliente editado com sucesso!" : "Cliente cadastrado com sucesso!");
+                        document.getElementById("listar").click();
+                        document.getElementById("form-cadastrar").reset();  // Limpar os campos do formulário
+                        document.getElementById("clientId").value = "";  // Limpar o campo de ID
+                        document.getElementById("cadastrar").value = "Cadastrar";  // Resetar o botão para "Cadastrar"
+                    } else {
+                        const errorText = await response.text();
+                        alert(`Erro: ${errorText}`);
+                    }
+                } catch (error) {
+                    alert(`Erro ao salvar cliente: ${error.message}`);
+                }
+            });
+
+            // Função para listar clientes
+            document.getElementById("listar").addEventListener("click", async () => {
+                try {
+                    const response = await fetch("http://localhost:3000/clientes", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    if (response.ok) {
+                        const clients = await response.json();
+                        const clientListContainer = document.getElementById("client-list");
+                        clientListContainer.innerHTML = "";  // Limpar lista anterior
+                            
+                        clients.forEach(client => {
+                            const clientDiv = document.createElement("div");
+                            clientDiv.className = 'lista';
+                            const formattedDate = new Date(client.dataNasc).toLocaleDateString('pt-BR');
+                            clientDiv.classList.add("client-item");
+                            clientDiv.innerHTML = `
+                                <p><strong>Nome:</strong> ${client.nome}</p>
+                                <p><strong>Email:</strong> ${client.email}</p>
+                                <p><strong>Telefone:</strong> ${client.telefone}</p>
+                                <p><strong>Endereço:</strong> ${client.endereco}</p>
+                                <p><strong>Data de Nascimento:</strong> ${formattedDate}</p>
+                                <button onclick="editClient(${client.id})" class="btm btm-editar">Editar</button>
+                                <button onclick="deleteClient(${client.id})" class="btm btm-deletar">Deletar</button>
+                            `;
+                            clientListContainer.appendChild(clientDiv);
+                        });
+                    } else {
+                        alert("Erro ao listar clientes.");
+                    }
+                } catch (error) {
+                    alert(`Erro: ${error.message}`);
+                }
+            });
+
+            // Função para editar cliente
+            function editClient(clientId) {
+                fetch(`http://localhost:3000/clientes/${clientId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("nome").value = data.nome;
+                        document.getElementById("cpf").value = data.cpf;
+                        document.getElementById("email").value = data.email;
+                        document.getElementById("endereco").value = data.endereco;
+                        document.getElementById("numero").value = data.telefone;
+                        const formattedDate = new Date(data.dataNasc).toISOString().split('T')[0]; // Converte para "YYYY-MM-DD"
+                        document.getElementById("nascimento").value = formattedDate;
+                        
+                        // Armazena o ID do cliente para atualização
+                        document.getElementById("clientId").value = clientId;
+                        document.getElementById("cadastrar").value = "Atualizar";  // Alterar botão para "Atualizar"
+                    })
+                    .catch(error => {
+                        console.error("Erro ao carregar dados do cliente:", error);
+                        alert("Erro ao carregar dados do cliente.");
+                    });
+            }
+
+            // Função para deletar cliente
+            async function deleteClient(clientId) {
+                if (confirm("Tem certeza que deseja deletar este cliente?")) {
+                    try {
+                        const response = await fetch(`http://localhost:3000/clientes/${clientId}`, {
+                            method: "DELETE",
+                        });
+
+                        if (response.ok) {
+                            alert("Cliente deletado com sucesso!");
+                            document.getElementById("listar").click();
+                        } else {
+                            alert("Erro ao deletar cliente.");
+                        }
+                    } catch (error) {
+                        alert(`Erro: ${error.message}`);
+                    }
+                }
+            }
+        </script>
+        <script> src="index.js"</script>
+    </body>
+</html>

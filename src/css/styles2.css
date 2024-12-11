@@ -1,0 +1,228 @@
+div#form-cont{
+    width: 95%;
+}
+
+form{
+    width: 100%;
+   margin-bottom: 30px;
+}
+
+div#formulario{
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: auto;
+    margin-bottom: 30px;
+    background-color: #6c757d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.508);
+}
+
+.entrada{
+    margin-bottom: 35px;
+    margin-left: 20px;
+}
+
+.input{
+    border-radius: 5px;
+}
+
+label{
+    color: white;
+}
+
+div#botoes{
+    text-align: center;
+    margin-bottom: 50px;
+ 
+}
+
+input#deletar, input#listar{
+    margin-right: 20px;
+}
+
+input#deletar:hover, input#listar:hover, input#editar:hover, input#cadastrar:hover, button#rolagem:hover{
+    background-color: green;
+}
+
+.botoes{
+    width: 150px;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    
+}
+
+input#cadastrar{
+    display: block;
+    background-color: blue;
+    margin: auto;
+    border-radius: 8px;
+    color: white;
+    width: 150px;
+}
+
+/* Estilo geral do formulário */
+#form-cadastrar {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#form-cadastrar .entrada {
+    margin-bottom: 15px;
+}
+
+#form-cadastrar label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#form-cadastrar input[type="text"],
+#form-cadastrar input[type="email"],
+#form-cadastrar input[type="tel"],
+#form-cadastrar input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#form-cadastrar input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#form-cadastrar input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#form-cadastrar .entrada input[type="submit"]:focus {
+    outline: none;
+}
+
+#form-cadastrar input[type="submit"]:active {
+    background-color: #3e8e41;
+}
+
+/* Estilo para a tabela de clientes */
+#client-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  #client-list th, #clientes-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  #client-list th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  #client-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #client-list tr:hover {
+    background-color: #ddd;
+  }
+  
+  #client-list td a {
+    text-decoration: none;
+    color: #007BFF;
+    padding: 5px;
+    border: 1px solid #007BFF;
+    border-radius: 3px;
+  }
+  
+  #client-list td a:hover {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  /* Estilo para a área de mensagens */
+  #mensagem {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Mensagens de sucesso */
+  #mensagem.success {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  /* Mensagens de erro */
+  #mensagem.error {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .lista{
+    margin-bottom: 40px;
+    border-top-width:3px;
+    border-top-color: black;
+    border-top-style: dashed;
+  }
+
+  .btm{
+    color: white;
+    border-radius: 5px;
+    margin-right: 15px;
+    width: 150px;
+  }
+
+
+
+  .btm-editar{
+    background-color: blue;
+  }
+
+  .btm-deletar{
+    background-color: red;
+  }
+
+  .btm-editar:hover{
+    background-color:#4CAF50;
+  }
+
+  .btm-deletar:hover{
+    background-color: black;
+  }
+
+  img#foto{
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.476);
+  }
+
+  p#texto{
+    text-align: justify;
+  }
+
+div#botoes{
+  padding-top: 20px;
+}
